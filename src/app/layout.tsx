@@ -5,8 +5,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "FR | SHOP",
-  description: "E-commerce website",
+  title: {
+    template: '%s - FR | Ecommerce',
+    default: 'Home'
+  },
+  description: "Una tienda en linea de productos",
 };
 
 export default function RootLayout({

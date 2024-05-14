@@ -10,7 +10,7 @@ const productsInCard = [
   initialData.products[2],
 ]
 
-export default function () {
+export default function CheckOutPage () {
 
 
   return (
@@ -111,7 +111,7 @@ export default function () {
               <p className="mb-5">
                 {/* Disclaimer */}
                 <span className="text-xs">
-                  Al hacer click en "Colocar orden" aceptas nuestros <a href="#">Terminos y condiciones</a> y <a href="#"> politica de privacidad</a>
+                  Al hacer click en &quot;Colocar orden&quot; aceptas nuestros <a href="#">Terminos y condiciones</a> y <a href="#"> politica de privacidad</a>
                 </span>
               </p>
 
