@@ -1,25 +1,27 @@
-import { inter } from "@/config/fonts";
 import type { Metadata } from "next";
-
+import { inter } from "@/config/fonts";
 
 import "./globals.css";
+import { Providers } from "@/components";
 
 export const metadata: Metadata = {
   title: {
-    template: '%s - FR | Ecommerce',
-    default: 'Home'
+    template: "%s - FR | Ecommerce",
+    default: "Home - FR | Ecommerce",
   },
-  description: "Una tienda en linea de productos",
+  description: "Una tienda virtual de productos",
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Providers>{children}</Providers>
+      </body>
     </html>
   );
 }

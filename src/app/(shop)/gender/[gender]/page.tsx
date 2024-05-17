@@ -1,13 +1,11 @@
-export const revalidate = 60;
+export const revalidate = 60; // 60 segundos
 
-import { getPaginatedProductsWithImages } from "@/actions";
-import { Pagination, ProductGrid, Title } from "@/components";
-import { Category } from "@/interfaces";
-import { initialData } from "@/seed/seed";
-import { Gender } from "@prisma/client";
-import { redirect } from "next/navigation";
+import { getPaginatedProductsWithImages } from '@/actions';
+import { Pagination, ProductGrid, Title } from '@/components';
 
- 
+import { Gender } from '@prisma/client';
+import { redirect } from 'next/navigation';
+
 
 
 interface Props {
@@ -15,65 +13,54 @@ interface Props {
     gender: string;
   },
   searchParams: {
-    page?: string;
-
+    page?: string; 
   }
 }
 
 
+export default async function GenderByPage({ params, searchParams }: Props) {
 
-export default async function GenderPage ({params, searchParams}: Props) {
+  const { gender } = params;
 
-  const {gender} = params;
+  const page = searchParams.page ? parseInt( searchParams.page ) : 1;
 
-  const page = searchParams.page ? parseInt( searchParams.page) : 1;
-  
-  const { products, currentPage, totalPages } = await getPaginatedProductsWithImages({
-    page,
+  const { products, currentPage, totalPages } = await getPaginatedProductsWithImages({ 
+    page, 
     gender: gender as Gender,
-
   });
 
-  if ( products.length === 0 ) {
-    redirect(`/gender/${ gender }`)
-  } 
 
+  if ( products.length === 0 ) {
+    redirect(`/gender/${ gender }`);
+  }
   
 
-  const labels: Record<string, string> = {
+  const labels: Record<string, string>  = {
     'men': 'para hombres',
     'women': 'para mujeres',
     'kid': 'para niños',
     'unisex': 'para todos'
   }
 
-  const subLabels: Record<string, string> = {
-    'men': 'de ellos',
-    'women': 'de ellas',
-    'kid': 'de los peques',
-    'unisex': 'de todos'
-  }
-
-  // if ( id === "kids") {
+  // if ( id === 'kids' ) {
   //   notFound();
   // }
 
-    return (
-      <>
+
+  return (
+    <>
       <Title
-        title={`Articulos ${labels[gender]}`}
-        subtitle={`Productos ${subLabels[gender]}`}
+        title={`Artículos de ${ labels[gender] }`}
+        subtitle="Todos los productos"
         className="mb-2"
       />
 
-      <ProductGrid
-        products={products}
+      <ProductGrid 
+        products={ products }
       />
 
-      <Pagination
-      totalPages={totalPages}
-      />
-
+      <Pagination totalPages={ totalPages }  />
+      
     </>
-    );
-  }
+  );
+}

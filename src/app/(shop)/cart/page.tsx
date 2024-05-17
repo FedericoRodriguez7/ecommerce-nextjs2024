@@ -1,19 +1,19 @@
-import { QuantitySelector, Title } from "@/components";
-import { initialData } from "@/seed/seed";
-import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
+import Link from 'next/link';
 
 
-const productsInCard = [
-  initialData.products[0],
-  initialData.products[1],
-  initialData.products[2],
-]
 
-export default function CartPage () {
+import { Title } from '@/components';
+import { ProductsInCart } from './ui/ProductsInCart';
+import { OrderSummary } from './ui/OrderSummary';
 
-  // redirect("/empty")
+
+
+
+export default function CartPage() {
+
+
+  // redirect('/empty');
+
 
 
   return (
@@ -21,90 +21,54 @@ export default function CartPage () {
 
       <div className="flex flex-col w-[1000px]">
 
-        <Title title="Carrito" />
+        <Title title='Carrito' />
+
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
 
-          {/* Carrito */}
-
+          {/* Carrito */ }
           <div className="flex flex-col mt-5">
-            <span className="text-xl">Agregar mas items</span>
+            <span className="text-xl">Agregar más items</span>
             <Link href="/" className="underline mb-5">
-              Continua comprando
+              Continúa comprando
             </Link>
+         
+
+
+          {/* Items */ }
+            <ProductsInCart />
+         
+           </div>
 
 
 
-            {/*  Items */}
 
-            {
-              productsInCard.map((product) => (
-
-                <div key={product.slug} className="flex mb-5">
-                  <Image
-                    src={`/products/${product.images[0]}`}
-                    alt={product.title}
-                    width={100}
-                    height={100}
-                    style={{
-                      width: '100px',
-                      height: '100px',
-                    }}
-                    className="mr-5 rounded"
-                  />
-
-                  <div>
-                    <p>{product.title}</p>
-                    <p>{product.price}</p>
-                    <QuantitySelector quantity={3} />
-
-                    <button className="underline mt-3">
-                      Remover
-                    </button>
-
-                  </div>
-
-
-                </div>
-              ))
-            }
-
-          </div>
-
-          {/* Checkout */}
-
+          {/* Checkout - Resumen de orden */ }
           <div className="bg-white rounded-xl shadow-xl p-7 h-fit">
             <h2 className="text-2xl mb-2">Resumen de orden</h2>
 
-            <div className="grid grid-cols-2">
-
-              <span>No. Productos</span>
-              <span className="text-right">3 articulos</span>
-
-              <span>Subtotal</span>
-              <span className="text-right">$ 100</span>
-
-              <span>Impuestos (%15)</span>
-              <span className="text-right">$ 100</span>
-
-              <span className="mt-5 text-2xl">Total:</span>
-              <span className="mt-5 text-2xl text-right">$ 100</span>
-
-            </div>
+            <OrderSummary />
 
             <div className="mt-5 mb-2 w-full">
-              <Link
-              className="flex btn-primary justify-center"
-              href="/checkout/address">
+              <Link 
+                className="flex btn-primary justify-center"
+                href="/checkout/address">
                 Checkout
               </Link>
             </div>
 
+
           </div>
+
+
 
         </div>
 
+
+
       </div>
+
+
     </div>
   );
 }
